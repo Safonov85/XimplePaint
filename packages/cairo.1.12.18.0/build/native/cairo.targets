@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="cairo_init">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkage-cairo Condition="'$(Linkage-cairo)' == ''">dynamic</Linkage-cairo>
+    <CallingConvention-cairo Condition="'$(CallingConvention-cairo)' == ''">cdecl</CallingConvention-cairo>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and v120 and Release and dynamic" Condition="'$(Platform.ToLower())' == 'win32' And ( $(PlatformToolset.ToLower().IndexOf('v120')) &gt; -1 Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And '$(Linkage-cairo.ToLower())' == 'dynamic'">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/Win32\v120\Release\dynamic\cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="Win32 and v120 and Debug and dynamic" Condition="'$(Platform.ToLower())' == 'win32' And ( $(PlatformToolset.ToLower().IndexOf('v120')) &gt; -1 Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And '$(Linkage-cairo.ToLower())' == 'dynamic'">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/Win32\v120\Debug\dynamic\cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and v120 and Release and dynamic" Condition="'$(Platform.ToLower())' == 'x64' And ( $(PlatformToolset.ToLower().IndexOf('v120')) &gt; -1 Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) == -1 ) And '$(Linkage-cairo.ToLower())' == 'dynamic'">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/x64\v120\Release\dynamic\cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Label="x64 and v120 and Debug and dynamic" Condition="'$(Platform.ToLower())' == 'x64' And ( $(PlatformToolset.ToLower().IndexOf('v120')) &gt; -1 Or '$(PlatformToolset.ToLower())' == 'windowskernelmodedriver8.0' Or '$(PlatformToolset.ToLower())' == 'windowsapplicationfordrivers8.0' Or '$(PlatformToolset.ToLower())' == 'windowsusermodedriver8.0' ) And ( $(Configuration.ToLower().IndexOf('debug')) &gt; -1 ) And '$(Linkage-cairo.ToLower())' == 'dynamic'">
+    <Link>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)../..//build/native/lib/x64\v120\Debug\dynamic\cairo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\cairo-propertiesui-9fdffc05-80cf-4f7b-9775-072e5572e946.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="cairo_Contains" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Text Output="false" ParameterType="System.String" />
+      <Library Output="false" Required="true" ParameterType="System.String" />
+      <Value Output="false" Required="true" ParameterType="System.String" />
+      <Result Output="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Code>Result = ((Text ?? "").Split(';').Contains(Library) ) ? Value : String.Empty;</Code>
+    </Task>
+  </UsingTask>
+  <Target Name="cairo_init">
+    <cairo_Contains Text="Linkage-dynamic" Library="cairo" Value="dynamic" Condition="'$(Linkage-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="Linkage-static" Library="cairo" Value="static" Condition="'$(Linkage-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="Linkage-ltcg" Library="cairo" Value="ltcg" Condition="'$(Linkage-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="Linkage-sxs" Library="cairo" Value="sxs" Condition="'$(Linkage-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="CallingConvention-cdecl" Library="cairo" Value="cdecl" Condition="'$(CallingConvention-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="CallingConvention-stdcall" Library="cairo" Value="stdcall" Condition="'$(CallingConvention-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="CallingConvention-fastcall" Library="cairo" Value="fastcall" Condition="'$(CallingConvention-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="CallingConvention-thiscall" Library="cairo" Value="thiscall" Condition="'$(CallingConvention-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-cairo" />
+    </cairo_Contains>
+    <cairo_Contains Text="CallingConvention-clrcall" Library="cairo" Value="clrcall" Condition="'$(CallingConvention-cairo)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-cairo" />
+    </cairo_Contains>
+  </Target>
+</Project>

@@ -1,0 +1,6 @@
+/home/datorn/Documents/Mono_Projects/XimplePaint/XimplePaint/XimplePaint/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/datorn/Documents/Mono_Projects/XimplePaint/XimplePaint/XimplePaint/obj/x86/Debug/XimplePaint.gtk-gui.gui.stetic
+/home/datorn/Documents/Mono_Projects/XimplePaint/XimplePaint/XimplePaint/bin/Debug/XimplePaint.exe.mdb
+/home/datorn/Documents/Mono_Projects/XimplePaint/XimplePaint/XimplePaint/bin/Debug/XimplePaint.exe
+/home/datorn/Documents/Mono_Projects/XimplePaint/XimplePaint/XimplePaint/obj/x86/Debug/XimplePaint.exe
+/home/datorn/Documents/Mono_Projects/XimplePaint/XimplePaint/XimplePaint/obj/x86/Debug/XimplePaint.exe.mdb
